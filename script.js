@@ -390,3 +390,20 @@ if (contactForm) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
+
+// ===== HERO IMAGE CAROUSEL =====
+let heroCarouselIndex = 0;
+const heroImages = document.querySelectorAll('.hero-carousel-img');
+function showHeroCarouselImage(idx) {
+    heroImages.forEach((img, i) => {
+        img.classList.toggle('active', i === idx);
+    });
+}
+function moveHeroCarousel(dir) {
+    heroCarouselIndex = (heroCarouselIndex + dir + heroImages.length) % heroImages.length;
+    showHeroCarouselImage(heroCarouselIndex);
+}
+// Initialize on DOMContentLoaded
+window.addEventListener('DOMContentLoaded', () => {
+    showHeroCarouselImage(heroCarouselIndex);
+});

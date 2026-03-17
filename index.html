@@ -29,7 +29,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="booking.html">Book Flight</a></li>
                     <li><a href="about.html">About Us</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
                 </ul>
 
                 <div class="auth-buttons">
@@ -45,6 +45,15 @@
         <div class="hero-content">
             <h1>Book Your Perfect Flight</h1>
             <p>Discover amazing destinations at the best prices</p>
+            <div class="hero-carousel">
+                <button class="carousel-arrow left" onclick="moveHeroCarousel(-1)">❮</button>
+                <div class="hero-carousel-images">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" class="hero-carousel-img active" alt="Mountain Flight View">
+                    <img src="https://images.unsplash.com/photo-1465156799763-2c087c332922?auto=format&fit=crop&w=800&q=80" class="hero-carousel-img" alt="City Night Flight">
+                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" class="hero-carousel-img" alt="Beach Destination">
+                </div>
+                <button class="carousel-arrow right" onclick="moveHeroCarousel(1)">❯</button>
+            </div>
             <a href="booking.html" class="cta-button">Book Now</a>
         </div>
     </section>
