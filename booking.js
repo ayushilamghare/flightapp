@@ -80,7 +80,7 @@ const sampleFlights = [
     }
 ];
 
-// Flight Search Form Submission
+// Search Form
 document.getElementById('searchForm').addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -99,7 +99,6 @@ document.getElementById('searchForm').addEventListener('submit', (e) => {
         return;
     }
 
-    // Filter flights based on search criteria
     const results = sampleFlights.filter(flight =>
         flight.departure.toLowerCase() === departure.toLowerCase() &&
         flight.arrival.toLowerCase() === arrival.toLowerCase()
@@ -108,267 +107,135 @@ document.getElementById('searchForm').addEventListener('submit', (e) => {
     displayFlightResults(results, departure, arrival, passengers, tripType);
 });
 
-// Display flight results
-function displayFlightResults(flights, departure, arrival, passengers, tripType) {
+// Display Results
+function displayFlightResults(flights, departure, arrival, passengers) {
     const flightResults = document.getElementById('flightResults');
     const flightsList = document.getElementById('flightsList');
     const resultsInfo = document.getElementById('resultsInfo');
 
     if (flights.length === 0) {
         resultsInfo.innerHTML = `<strong>No flights found from ${departure} to ${arrival}</strong>`;
-        flightsList.innerHTML = '<p class="no-results">Sorry, no flights available for this route. Please try a different search.</p>';
+        flightsList.innerHTML = '<p class="no-results">No flights available</p>';
         flightResults.style.display = 'block';
         return;
     }
 
-    resultsInfo.innerHTML = `Found ${flights.length} flight(s) from <strong>${departure}</strong> to <strong>${arrival}</strong> for <strong>${passengers} passenger(s)</strong>`;
+    resultsInfo.innerHTML = `Found ${flights.length} flight(s)`;
 
     flightsList.innerHTML = flights.map(flight => `
         <div class="flight-card">
             <div class="flight-header">
                 <div class="airline-info">
-                    <div class="airline-logo">${flight.image}</div>
+                    <div>${flight.image}</div>
                     <div>
                         <h4>${flight.airline}</h4>
-                        <p class="flight-number">Flight ${flight.flightNumber}</p>
+                        <p>${flight.flightNumber}</p>
                     </div>
                 </div>
-                <div class="flight-time">
-                    <div class="time-section">
-                        <h5>${flight.departTime}</h5>
-                        <p>${flight.departure.substring(0, 3).toUpperCase()}</p>
-                    </div>
-                    <div class="flight-duration">
-                        <p>${flight.duration}</p>
-                        <div class="flight-line"></div>
-                        <p class="stops">${flight.stops === 0 ? 'Non-stop' : `${flight.stops} stop(s)`}</p>
-                    </div>
-                    <div class="time-section">
-                        <h5>${flight.arrivalTime}</h5>
-                        <p>${flight.arrival.substring(0, 3).toUpperCase()}</p>
-                    </div>
+                <div>
+                    <h5>${flight.departTime} → ${flight.arrivalTime}</h5>
+                    <p>${flight.departure} → ${flight.arrival}</p>
                 </div>
-                <div class="flight-price">
-                    <p class="price-label">Price per person</p>
+                <div>
                     <h3>$${flight.price}</h3>
-                    <p class="total-price">Total: $${flight.price * passengers}</p>
+                    <p>Total: $${flight.price * passengers}</p>
                 </div>
             </div>
             <div class="flight-footer">
-                <button class="btn btn-book" onclick="bookFlight(${flight.id}, ${flight.price}, ${passengers}, '${flight.airline}', '${flight.flightNumber}', '${flight.departure}', '${flight.arrival}')">
-                    Book Now
+                <button class="btn btn-book"
+                onclick="bookFlight(${flight.id}, ${flight.price}, ${passengers}, '${flight.airline}', '${flight.flightNumber}', '${flight.departure}', '${flight.arrival}')">
+                Book Now
                 </button>
             </div>
         </div>
     `).join('');
 
     flightResults.style.display = 'block';
-    flightResults.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Book flight function
+// BOOK FLIGHT (UPDATED WITH CONFIRMATION)
 function bookFlight(flightId, price, passengers, airline, flightNumber, departure, arrival) {
     const currentUser = getLoggedInUser();
 
     if (!currentUser) {
-        showErrorPopup('Login Required', 'Please login to book a flight');
+        showErrorPopup('Login Required', 'Please login first');
         document.getElementById('loginModal').style.display = 'block';
         return;
     }
 
     const totalPrice = price * passengers;
+
+    // 🔥 Confirmation
+    const confirmBooking = confirm(`Are you sure you want to book?
+
+✈️ ${airline} (${flightNumber})
+📍 ${departure} → ${arrival}
+👤 ${passengers} Passenger(s)
+💰 $${totalPrice}`);
+
+    if (!confirmBooking) return;
+
     const bookingId = 'BK' + Date.now();
-    
+
     const booking = {
         bookingId,
-        flightId,
         airline,
         flightNumber,
         departure,
         arrival,
         passengers,
-        pricePerPerson: price,
         totalPrice,
-        bookingDate: new Date().toISOString(),
-        departureDate: document.getElementById('departDate').value,
-        returnDate: document.getElementById('returnDate').value,
-        cabinClass: document.getElementById('class').value,
-        userName: currentUser.name,
         userEmail: currentUser.email
     };
 
-    // Save booking to localStorage
     const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
     bookings.push(booking);
     localStorage.setItem('bookings', JSON.stringify(bookings));
 
-    showSuccessPopup('🎉 Booking Confirmed!', `Your flight with ${airline} (${flightNumber}) has been booked!\n\nBooking ID: ${bookingId}\nTotal: $${totalPrice}`);
-    displayMyBookings();
+    alert(`Booking Confirmed!\nID: ${bookingId}`);
 }
 
-// Display My Bookings
-function displayMyBookings() {
-    const currentUser = getLoggedInUser();
-    
-    if (!currentUser) {
-        return;
-    }
-
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-    const userBookings = bookings.filter(b => b.userEmail === currentUser.email);
-
-    const myBookingsSection = document.getElementById('myBookingsSection');
-    const bookingsList = document.getElementById('bookingsList');
-
-    if (userBookings.length === 0) {
-        myBookingsSection.style.display = 'none';
-        return;
-    }
-
-    myBookingsSection.style.display = 'block';
-    bookingsList.innerHTML = userBookings.map(booking => `
-        <div class="booking-card">
-            <div class="booking-header">
-                <div class="booking-id">
-                    <strong>Booking ID:</strong> ${booking.bookingId}
-                </div>
-                <div class="booking-status">
-                    <span class="status-badge confirmed">✓ Confirmed</span>
-                </div>
-            </div>
-            <div class="booking-details">
-                <div class="detail-row">
-                    <div class="detail-item">
-                        <label>Airline</label>
-                        <p>${booking.airline}</p>
-                    </div>
-                    <div class="detail-item">
-                        <label>Flight Number</label>
-                        <p>${booking.flightNumber}</p>
-                    </div>
-                    <div class="detail-item">
-                        <label>Cabin Class</label>
-                        <p style="text-transform: capitalize;">${booking.cabinClass}</p>
-                    </div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-item">
-                        <label>Route</label>
-                        <p>${booking.departure} → ${booking.arrival}</p>
-                    </div>
-                    <div class="detail-item">
-                        <label>Departure Date</label>
-                        <p>${new Date(booking.departureDate).toLocaleDateString()}</p>
-                    </div>
-                    <div class="detail-item">
-                        <label>Passengers</label>
-                        <p>${booking.passengers}</p>
-                    </div>
-                </div>
-                <div class="detail-row">
-                    <div class="detail-item">
-                        <label>Price Per Person</label>
-                        <p>$${booking.pricePerPerson}</p>
-                    </div>
-                    <div class="detail-item">
-                        <label>Total Price</label>
-                        <p class="total-amount">$${booking.totalPrice}</p>
-                    </div>
-                    <div class="detail-item">
-                        <label>Booked On</label>
-                        <p>${new Date(booking.bookingDate).toLocaleDateString()}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="booking-actions">
-                <button class="btn btn-invoice" onclick="viewInvoice('${booking.bookingId}')">
-                    📄 View Invoice
-                </button>
-                <button class="btn btn-cancel" onclick="cancelBooking('${booking.bookingId}')">
-                    ✕ Cancel Booking
-                </button>
-            </div>
-        </div>
-    `).join('');
-
-    // Scroll to bookings section
-    myBookingsSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-// View Invoice
-function viewInvoice(bookingId) {
-    // Redirect to invoice page with booking ID
-    window.location.href = `invoice.html?bookingId=${bookingId}`;
-}
-
-// Cancel Booking
-function cancelBooking(bookingId) {
-    if (confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
-        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-        const updatedBookings = bookings.filter(b => b.bookingId !== bookingId);
-        localStorage.setItem('bookings', JSON.stringify(updatedBookings));
-        
-        showSuccessPopup('Booking Cancelled', 'Your booking has been cancelled. Refund will be processed within 5-7 business days.');
-        displayMyBookings();
-    }
-}
-
-// Direct book from popular routes without searching
+// DIRECT BOOK (UPDATED)
 function directBook(departure, arrival, price, airline, flightNumber) {
     const currentUser = getLoggedInUser();
+
     if (!currentUser) {
-        showErrorPopup('Login Required', 'Please login to book a flight');
-        document.getElementById('loginModal').style.display = 'block';
+        showErrorPopup('Login Required', 'Please login first');
         return;
     }
-    const passengers = 1;
-    const totalPrice = price * passengers;
+
+    const totalPrice = price;
+
+    const confirmBooking = confirm(`Book this flight?
+
+✈️ ${airline} (${flightNumber})
+📍 ${departure} → ${arrival}
+💰 $${totalPrice}`);
+
+    if (!confirmBooking) return;
+
     const bookingId = 'BK' + Date.now();
-    const today = new Date().toISOString().split('T')[0];
-    const booking = {
+
+    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+    bookings.push({
         bookingId,
-        flightId: Math.random() * 1000,
         airline,
         flightNumber,
         departure,
         arrival,
-        passengers,
-        pricePerPerson: price,
         totalPrice,
-        bookingDate: new Date().toISOString(),
-        departureDate: today,
-        returnDate: '',
-        cabinClass: 'economy',
-        userName: currentUser.name,
         userEmail: currentUser.email
-    };
-    const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-    bookings.push(booking);
+    });
+
     localStorage.setItem('bookings', JSON.stringify(bookings));
-    showSuccessPopup('Booking Confirmed!', `Flight with ${airline} booked!\n\nBooking ID: ${bookingId}\nTotal: $${totalPrice}`);
-    setTimeout(() => {
-        window.location.href = `invoice.html?bookingId=${bookingId}`;
-    }, 2000);
+
+    alert("Flight Booked!");
 }
 
-// Select route from popular routes
-function selectRoute(departure, arrival) {
-    document.getElementById('departure').value = departure;
-    document.getElementById('arrival').value = arrival;
-    document.getElementById('searchForm').scrollIntoView({ behavior: 'smooth' });
-}
-
-// Set minimum date to today
+// DATE LOGIC
 window.addEventListener('load', () => {
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('departDate').min = today;
     document.getElementById('returnDate').min = today;
-
-    // Update return date minimum when departure date changes
-    document.getElementById('departDate').addEventListener('change', (e) => {
-        document.getElementById('returnDate').min = e.target.value;
-    });
-
-    // Display bookings if user is logged in
-    displayMyBookings();
 });
