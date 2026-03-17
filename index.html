@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking - Find & Book Your Flight</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">SkyWings</span>
+            </div>
+
+            <!-- Hamburger Menu -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Nav Links and Auth Buttons -->
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html">Book Flight</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <button class="btn btn-login" id="loginBtn">Login</button>
+                    <button class="btn btn-signup" id="signupBtn">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content (Hero Section) -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Book Your Perfect Flight</h1>
+            <p>Discover amazing destinations at the best prices</p>
+            <a href="booking.html" class="cta-button">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Quick Stats Section -->
+    <section class="quick-stats">
+        <div class="container">
+            <div class="stats-row">
+                <div class="stat-card">
+                    <h3>500+</h3>
+                    <p>Airlines</p>
+                </div>
+                <div class="stat-card">
+                    <h3>1000+</h3>
+                    <p>Destinations</p>
+                </div>
+                <div class="stat-card">
+                    <h3>2M+</h3>
+                    <p>Happy Travelers</p>
+                </div>
+                <div class="stat-card">
+                    <h3>24/7</h3>
+                    <p>Customer Support</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations Carousel -->
+    <section class="featured-destinations">
+        <div class="container">
+            <h2>Featured Destinations</h2>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" onclick="scrollCarousel('destinations', -1)">❮</button>
+                <div class="carousel" id="destinationsCarousel">
+                    <div class="carousel-card">
+                        <div class="card-image">🗽</div>
+                        <h3>New York</h3>
+                        <p class="destination-info">USA</p>
+                        <p class="price-info">From $450</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-image">🗼</div>
+                        <h3>Paris</h3>
+                        <p class="destination-info">France</p>
+                        <p class="price-info">From $520</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-image">🏯</div>
+                        <h3>Tokyo</h3>
+                        <p class="destination-info">Japan</p>
+                        <p class="price-info">From $580</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-image">🕌</div>
+                        <h3>Dubai</h3>
+                        <p class="destination-info">UAE</p>
+                        <p class="price-info">From $350</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-image">🏖️</div>
+                        <h3>Bali</h3>
+                        <p class="destination-info">Indonesia</p>
+                        <p class="price-info">From $280</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-image">🗿</div>
+                        <h3>London</h3>
+                        <p class="destination-info">UK</p>
+                        <p class="price-info">From $380</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                    <div class="carousel-card">
+                        <div class="card-image">🌉</div>
+                        <h3>Singapore</h3>
+                        <p class="destination-info">Singapore</p>
+                        <p class="price-info">From $420</p>
+                        <button class="card-btn">Explore</button>
+                    </div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('destinations', 1)">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us-home">
+        <div class="container">
+            <h2>Why Choose SkyWings?</h2>
+            <div class="benefits-carousel">
+                <button class="carousel-btn prev" onclick="scrollCarousel('benefits', -1)">❮</button>
+                <div class="carousel" id="benefitsCarousel">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">💰</div>
+                        <h3>Best Price Guarantee</h3>
+                        <p>Find the lowest fares guaranteed. We match any competitor's price.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🔒</div>
+                        <h3>100% Secure Booking</h3>
+                        <p>Your data is protected with industry-leading encryption technology.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">⚡</div>
+                        <h3>Instant Confirmation</h3>
+                        <p>Get your booking confirmation instantly via email and SMS.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎧</div>
+                        <h3>24/7 Support</h3>
+                        <p>Our dedicated support team is always ready to assist you.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎟️</div>
+                        <h3>Flexible Cancellation</h3>
+                        <p>Cancel or modify your booking up to 24hrs before departure.</p>
+                    </div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('benefits', 1)">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section class="testimonials">
+        <div class="container">
+            <h2>What Our Customers Say</h2>
+            <div class="testimonials-carousel">
+                <button class="carousel-btn prev" onclick="scrollCarousel('testimonials', -1)">❮</button>
+                <div class="carousel" id="testimonialsCarousel">
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"SkyWings made my trip planning so easy! Best prices and excellent customer service."</p>
+                        <p class="testimonial-author">- Sarah Johnson</p>
+                        <p class="testimonial-location">New York, USA</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"I've booked 10 flights with SkyWings. Never disappointed. Highly recommended!"</p>
+                        <p class="testimonial-author">- Michael Chen</p>
+                        <p class="testimonial-location">Singapore</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"The booking process is so smooth and the prices are unbeatable compared to others."</p>
+                        <p class="testimonial-author">- Emma Williams</p>
+                        <p class="testimonial-location">London, UK</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"Fantastic experience! The team helped me reschedule my flight without any hassle."</p>
+                        <p class="testimonial-author">- Raj Patel</p>
+                        <p class="testimonial-location">Mumbai, India</p>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">"Best flight booking platform I've used. Simple, fast, and reliable!"</p>
+                        <p class="testimonial-author">- Lisa Anderson</p>
+                        <p class="testimonial-location">Toronto, Canada</p>
+                    </div>
+                </div>
+                <button class="carousel-btn next" onclick="scrollCarousel('testimonials', 1)">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Deals Section -->
+    <section class="best-deals">
+        <div class="container">
+            <h2>🎉 Hot Deals This Week</h2>
+            <div class="deals-grid">
+                <div class="deal-card">
+                    <div class="deal-badge">-30%</div>
+                    <div class="deal-route">New York → London</div>
+                    <div class="deal-price">
+                        <span class="original-price">$650</span>
+                        <span class="discount-price">$450</span>
+                    </div>
+                    <p class="deal-validity">Valid till March 24</p>
+                    <a href="booking.html" class="btn-deal">Book Now</a>
+                </div>
+                <div class="deal-card">
+                    <div class="deal-badge">-25%</div>
+                    <div class="deal-route">Los Angeles → Tokyo</div>
+                    <div class="deal-price">
+                        <span class="original-price">$780</span>
+                        <span class="discount-price">$580</span>
+                    </div>
+                    <p class="deal-validity">Valid till March 25</p>
+                    <a href="booking.html" class="btn-deal">Book Now</a>
+                </div>
+                <div class="deal-card">
+                    <div class="deal-badge">-40%</div>
+                    <div class="deal-route">Paris → Barcelona</div>
+                    <div class="deal-price">
+                        <span class="original-price">$200</span>
+                        <span class="discount-price">$120</span>
+                    </div>
+                    <p class="deal-validity">Valid till March 26</p>
+                    <a href="booking.html" class="btn-deal">Book Now</a>
+                </div>
+                <div class="deal-card">
+                    <div class="deal-badge">-35%</div>
+                    <div class="deal-route">Dubai → Singapore</div>
+                    <div class="deal-price">
+                        <span class="original-price">$540</span>
+                        <span class="discount-price">$350</span>
+                    </div>
+                    <p class="deal-validity">Valid till March 27</p>
+                    <a href="booking.html" class="btn-deal">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Search Flights</h3>
+                    <p>Enter your destination and travel dates</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Compare Prices</h3>
+                    <p>View all available flights and prices</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Book & Pay</h3>
+                    <p>Complete your booking securely</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Get Confirmation</h3>
+                    <p>Receive instant booking confirmation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get in Touch With Us</h2>
+            <p class="contact-subtitle">Have questions? We're here to help!</p>
+            
+            <div class="contact-wrapper">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h3>Send us a Message</h3>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Full Name</label>
+                            <input type="text" id="contactName" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address</label>
+                            <input type="email" id="contactEmail" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactSubject">Subject</label>
+                            <input type="text" id="contactSubject" placeholder="What is this about?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" placeholder="Your message here..." rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="contact-info-container">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p><a href="mailto:support@skywings.com">support@skywings.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+1-800-123-4567">+1 (800) 123-4567</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Address</h4>
+                            <p>123 Sky Avenue<br>New York, NY 10001<br>United States</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-details">
+                            <h4>Business Hours</h4>
+                            <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get exclusive deals and travel tips delivered to your inbox</p>
+            <form class="newsletter-form" id="newsletter-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-subscribe">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <h2>Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close" id="closeSignupModal">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirm">Confirm Password</label>
+                    <input type="password" id="signupConfirm" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

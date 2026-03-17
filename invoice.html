@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - SkyWings Flight Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- Logo -->
+            <div class="navbar-logo">
+                <span class="logo-icon">✈️</span>
+                <span class="logo-text">SkyWings</span>
+            </div>
+
+            <!-- Hamburger Menu -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Nav Links and Auth Buttons -->
+            <div class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html">Book Flight</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+
+                <div class="auth-buttons">
+                    <button class="btn btn-login" id="loginBtn">Login</button>
+                    <button class="btn btn-signup" id="signupBtn">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Invoice Section -->
+    <section class="invoice-section">
+        <div class="invoice-container">
+            <!-- Invoice Header -->
+            <div class="invoice-header">
+                <div class="company-info">
+                    <h1 class="company-name">✈️ SkyWings</h1>
+                    <p>Flight Booking Services</p>
+                    <p class="company-details">Email: support@skywings.com</p>
+                    <p class="company-details">Phone: +1 (800) 123-4567</p>
+                </div>
+                <div class="invoice-title">
+                    <h2>INVOICE</h2>
+                    <p id="invoiceNumber"></p>
+                </div>
+            </div>
+
+            <!-- Invoice Info -->
+            <div class="invoice-info">
+                <div class="info-item">
+                    <label>Invoice Date</label>
+                    <p id="invoiceDate"></p>
+                </div>
+                <div class="info-item">
+                    <label>Booking ID</label>
+                    <p id="bookingID"></p>
+                </div>
+                <div class="info-item">
+                    <label>Status</label>
+                    <p><span class="badge-confirmed">✓ CONFIRMED</span></p>
+                </div>
+            </div>
+
+            <!-- Bill To -->
+            <div class="bill-section">
+                <div class="bill-item">
+                    <h3>Bill To:</h3>
+                    <p id="customerName"></p>
+                    <p id="customerEmail"></p>
+                    <p id="customerPhone">Phone: Provided at checkout</p>
+                </div>
+                <div class="bill-item">
+                    <h3>Flight Details:</h3>
+                    <p><strong id="airline"></strong></p>
+                    <p>Flight Number: <strong id="flightNumber"></strong></p>
+                    <p id="cabinClass"></p>
+                </div>
+            </div>
+
+            <!-- Flight Route -->
+            <div class="invoice-route">
+                <div class="route-detail">
+                    <p class="city-code" id="departureCode"></p>
+                    <p class="city-name" id="departureCity"></p>
+                    <p class="date" id="departureDate"></p>
+                </div>
+                <div class="route-arrow">✈️</div>
+                <div class="route-detail">
+                    <p class="city-code" id="arrivalCode"></p>
+                    <p class="city-name" id="arrivalCity"></p>
+                    <p class="date" id="arrivalDate"></p>
+                </div>
+            </div>
+
+            <!-- Items Table -->
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="itemDescription"></td>
+                        <td id="itemQuantity"></td>
+                        <td id="itemPrice"></td>
+                        <td id="itemAmount"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Totals -->
+            <div class="invoice-totals">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal"></span>
+                </div>
+                <div class="total-row">
+                    <span>Tax (0%)</span>
+                    <span id="tax">$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Discount</span>
+                    <span id="discount">$0.00</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Amount</span>
+                    <span id="grandTotal"></span>
+                </div>
+            </div>
+
+            <!-- Payment Info -->
+            <div class="payment-info">
+                <h3>Payment Information</h3>
+                <p><strong>Payment Method:</strong> Credit/Debit Card</p>
+                <p><strong>Status:</strong> <span class="payment-status">Paid</span></p>
+                <p><strong>Payment Date:</strong> <span id="paymentDate"></span></p>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="invoice-terms">
+                <h3>Terms & Conditions</h3>
+                <ul>
+                    <li>This invoice is valid only with our letterhead.</li>
+                    <li>Please check-in 2 hours before domestic flights and 3 hours before international flights.</li>
+                    <li>Baggage policy applies as per airline guidelines.</li>
+                    <li>Refund will be processed within 5-7 business days of cancellation.</li>
+                    <li>For queries, please contact our customer support team.</li>
+                </ul>
+            </div>
+
+            <!-- Footer -->
+            <div class="invoice-footer">
+                <p>Thank you for choosing SkyWings!</p>
+                <p>For any queries, contact us at support@skywings.com</p>
+            </div>
+
+            <!-- Print & Download Section -->
+            <div class="invoice-actions">
+                <button class="btn btn-print" onclick="window.print()">🖨️ Print Invoice</button>
+                <button class="btn btn-download" onclick="downloadInvoice()">⬇️ Download PDF</button>
+                <a href="booking.html" class="btn btn-back">← Back to Bookings</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" id="closeLoginModal">&times;</span>
+            <h2>Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close" id="closeSignupModal">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirm">Confirm Password</label>
+                    <input type="password" id="signupConfirm" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="invoice.js"></script>
+</body>
+</html>
